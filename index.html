@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manual do Corredor | Equipamentos, Calendário e Dicas de Corrida</title>
+    <link rel="icon" href="data:,">
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
@@ -92,7 +93,6 @@
         .footer-links a:hover { color: var(--primary); }
         .footer-disclaimer { font-size: 12px; color: #475569; margin-top: 25px; max-width: 800px; margin-left: auto; margin-right: auto; border-top: 1px solid #1e293b; padding-top: 25px; }
 
-        /* Estilo para Textos de Carregamento Temporário */
         .loading-pulse { text-align: center; padding: 35px; color: var(--gray-text); font-weight: 600; font-size: 14px; grid-column: span 3; width: 100%; }
 
         @media (max-width: 768px) {
@@ -103,10 +103,11 @@
             .nav-links a { font-size: 15px; color: var(--white); display: block; padding: 5px 0; }
             .hero { height: 400px; }
             .hero-content h1 { font-size: 2.6rem; }
+            .hero-content p { font-size: 1.1rem; }
             .carousel-btn { display: none; } 
             .carousel-container { grid-auto-columns: 100%; gap: 20px; padding: 10px 0; }
             .post-card { height: auto; min-height: 440px; }
-            .table-container::after { content: '➔ Deslize lateralmente para ver o grid completo'; display: block; text-align: center; font-size: 11px; color: var(--primary); padding: 10px; background: #fff; border-top: 1px solid var(--border-color); font-weight: 700; text-transform: uppercase; }
+            .table-container::after { content: '➔ Deslize lateralmente para ver o grid completo'; display: block; text-align: center; font-size: 11px; color: var(--primary); padding: 10px; background: #fff; border-top: 1px solid var(--border-color); font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         }
     </style>
 </head>
@@ -136,7 +137,7 @@
     <section id="novidades" class="container section-padding">
         <div class="section-header">
             <h2>Últimos <span>Lançamentos</span></h2>
-            <p>Nuestra análise sobre os principais lançamentos do mercado.</p>
+            <p>Nossa análise sobre os principais lançamentos do mercado.</p>
         </div>
         <div class="content-grid" id="novidades-render-target">
             <div class="loading-pulse"><i class="fas fa-spinner fa-spin"></i> Sincronizando com os servidores Supabase...</div>
@@ -245,13 +246,13 @@
                     document.getElementById('novidades-render-target').innerHTML = '<div class="loading-pulse">Nenhum lançamento cadastrado.</div>';
                 }
 
-                // 2. Renderizar Comparativos
+                // 2. Renderizar Comparativos (CORRIGIDO: usando c.modeloa e c.modelob totalmente em minúsculo do PostgreSQL)
                 const resComparativos = await _supabase.from('comparativos').select('*').order('id', { ascending: true });
                 if(resComparativos.data && resComparativos.data.length > 0) {
                     document.getElementById('comparativos-render-target').innerHTML = resComparativos.data.map(c => `
                         <tr>
-                            <td><b>${c.modeloA}</b></td>
-                            <td>${c.modeloB}</td>
+                            <td><b>${c.modeloa || c.modeloA}</b></td>
+                            <td>${c.modelob || c.modeloB}</td>
                             <td>${c.confronto}</td>
                             <td>${c.veredito}</td>
                             <td><a href="${c.link}" target="_blank" class="btn-table">Ver Preços</a></td>
