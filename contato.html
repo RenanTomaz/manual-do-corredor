@@ -4,47 +4,87 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contato | Manual do Corredor</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,700;1,800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+
     <style>
-        :root { --primary: #ff4d00; --dark: #121212; --gray: #555; --light-gray: #f8f9fa; --white: #ffffff; }
+        :root {
+            --primary: #ff5500;
+            --dark: #0f1115;
+            --dark-surface: #161920;
+            --gray-text: #64748b;
+            --light-bg: #f4f6f9;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background-color: var(--light-gray); color: var(--dark); line-height: 1.6; }
-        .container { max-width: 600px; margin: 0 auto; padding: 0 20px; }
-        header { background: var(--white); padding: 15px 0; box-shadow: 0 2px 15px rgba(0,0,0,0.08); }
-        nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 26px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--dark); }
-        .logo span { color: var(--primary); }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light-bg); color: var(--dark); line-height: 1.6; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .container-narrow { max-width: 700px; margin: 0 auto; padding: 0 24px; }
         
-        .content-area { padding: 40px; background: var(--white); margin: 40px auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h1 { font-family: 'Oswald', sans-serif; font-size: 2.2rem; text-transform: uppercase; margin-bottom: 20px; border-bottom: 3px solid var(--primary); display: inline-block; }
-        p { margin-bottom: 25px; color: var(--gray); }
+        /* HEADER */
+        header { background: rgba(15, 17, 21, 0.95); backdrop-filter: blur(12px); padding: 18px 0; position: sticky; top: 0; z-index: 1000; border-bottom: 2px solid var(--primary); }
+        nav { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--white); letter-spacing: -1px; }
+        .logo span { color: var(--primary); font-style: italic; font-weight: 800; }
+
+        /* CONTEÚDO */
+        main { padding: 80px 0; min-height: calc(100vh - 350px); }
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 3rem; font-weight: 800; text-transform: uppercase; letter-spacing: -1px; margin-bottom: 20px; line-height: 1.1; }
+        h1 span { font-style: italic; color: var(--primary); display: inline-block; transform: skewX(-10deg); }
         
-        .contact-info { background: var(--light-gray); padding: 20px; border-radius: 6px; text-align: center; font-size: 1.2rem; font-weight: bold; border: 1px solid #eee; }
-        .contact-info i { color: var(--primary); margin-right: 10px; }
-        footer { background: var(--dark); color: var(--white); padding: 30px 0; text-align: center; margin-top: 60px; font-size: 14px; }
+        p { color: #334155; font-size: 1.05rem; margin-bottom: 30px; }
+        
+        .contact-info { background: var(--white); padding: 30px; border-radius: 12px; text-align: center; font-size: 1.3rem; font-weight: 700; border: 1px solid var(--border-color); box-shadow: 0 4px 20px rgba(0,0,0,0.02); display: flex; align-items: center; justify-content: center; gap: 15px; }
+        .contact-info i { color: var(--primary); font-size: 1.6rem; }
+        .contact-info b { color: var(--primary); }
+
+        /* FOOTER */
+        footer { background: var(--dark); color: #94a3b8; padding: 60px 0; text-align: center; margin-top: 80px; border-top: 4px solid var(--primary); }
+        footer .logo { margin-bottom: 20px; display: inline-block; }
+        footer p { font-size: 14px; color: #94a3b8; }
+        .footer-links { margin: 20px 0 25px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .footer-links a { color: #cbd5e1; text-decoration: none; font-size: 13px; font-weight: 700; text-transform: uppercase; transition: 0.2s; }
+        .footer-links a:hover { color: var(--primary); }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .contact-info { font-size: 1.1rem; flex-direction: column; gap: 8px; }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <nav>
+        <nav class="container">
             <a href="index.html" class="logo">MANUAL DO<span>CORREDOR</span></a>
         </nav>
     </header>
 
-    <main class="container content-area">
-        <h1>Contato</h1>
+    <main class="container-narrow">
+        <h1>Fale <span>Conosco</span></h1>
         <p>Tem alguma dúvida sobre qual tênis escolher? Quer sugerir um produto para análise ou propor uma parceria comercial com o Manual do Corredor? Ficaremos felizes em responder!</p>
         
         <p>Para manter a estrutura leve e direta do nosso site, centralizamos todo o nosso atendimento diretamente via e-mail corporativo. Respondemos em até 48 horas úteis.</p>
-
+        
         <div class="contact-info">
-            <i class="fas fa-envelope"></i> contato@manualdocorredor.com.br
+            <i class="fas fa-envelope"></i>
+            <span>seu-email@manualdocorredor.com.br</span>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2026 Manual do Corredor. Todos os direitos reservados.</p>
+        <div class="container">
+            <a href="index.html" class="logo">MANUAL DO<span> CORREDOR</span></a>
+            <p>&copy; 2026 Manual do Corredor. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="sobre.html">Quem Somos</a>
+                <a href="contato.html">Contato</a>
+                <a href="politica-de-privacidade.html">Diretrizes de Privacidade</a>
+            </div>
+        </div>
     </footer>
 
 </body>

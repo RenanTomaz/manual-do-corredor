@@ -4,187 +4,250 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel do Administrador | Manual do Corredor</title>
-    <!-- Ícones -->
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 40px 20px; color: #333; margin: 0; }
-        .dashboard { max-width: 700px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        h1 { text-align: center; margin-bottom: 25px; font-size: 26px; color: #ff4d00; font-weight: 700; text-transform: uppercase; }
-        
-        /* Sistema de Abas (Tabs) */
-        .tabs-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
-        .tab-btn { flex: 1; background: #e4e6eb; border: none; padding: 12px; font-weight: bold; font-size: 14px; cursor: pointer; border-radius: 6px; color: #444; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-        .tab-btn.active { background: #ff4d00; color: white; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        :root {
+            --primary: #ff5500;
+            --primary-hover: #e04b00;
+            --dark: #0f1115;
+            --dark-surface: #161920;
+            --light-bg: #f4f6f9;
+            --white: #ffffff;
+            --border-color: #cbd5e1;
+        }
 
-        /* Formulários e Componentes */
-        label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; font-size: 14px; }
-        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; background: #f9f9f9; }
-        input:focus, select:focus, textarea:focus { border-color: #ff4d00; background: #fff; outline: none; }
-        textarea { height: 90px; resize: none; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light-bg); padding: 40px 20px; color: var(--dark); margin: 0; }
+        .dashboard { max-width: 900px; margin: 0 auto; background: var(--white); padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(15,17,21,0.05); border: 1px solid #e2e8f0; }
         
-        .btn-action { background: #ff4d00; color: white; border: none; padding: 14px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 25px; font-size: 16px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-action:hover { background: #121212; }
+        h1 { font-family: 'Space Grotesk', sans-serif; text-align: center; margin-bottom: 35px; font-size: 28px; color: var(--dark); font-weight: 700; text-transform: uppercase; letter-spacing: -0.5px; }
+        h1 span { color: var(--primary); font-style: italic; }
         
-        /* Output de Código */
-        .output-container { margin-top: 30px; border-top: 2px dashed #ff4d00; padding-top: 20px; }
-        pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; font-size: 13px; max-height: 250px; }
-        .copy-info { color: #2e7d32; font-weight: bold; text-align: center; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+        /* Sistema de Abas */
+        .tabs-nav { display: flex; gap: 8px; margin-bottom: 30px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; padding: 12px; background: #f1f5f9; border: none; font-size: 11px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; color: #475569; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 160px; }
+        .tab-btn:hover { background: #e2e8f0; color: var(--dark); }
+        .tab-btn.active { background: var(--primary); color: var(--white); }
+        
+        /* Formulários Dinâmicos */
+        .form-container { background: #f8fafc; padding: 25px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 40px; }
+        .form-container h3 { font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; margin-bottom: 20px; font-size: 16px; color: var(--dark); border-bottom: 2px solid var(--primary); padding-bottom: 5px; display: inline-block; }
+        .grid-form { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .full-width { grid-column: span 2; }
+        
+        label { font-weight: 700; display: block; margin-bottom: 6px; font-size: 12px; text-transform: uppercase; color: #475569; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid var(--border-color); border-radius: 6px; box-sizing: border-box; font-size: 14px; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { border-color: var(--primary); outline: none; background: #fff; }
+        textarea { height: 80px; resize: none; }
+        
+        .form-actions { margin-top: 20px; display: flex; gap: 10px; }
+        .btn-submit { background: var(--dark); color: #fff; border: none; padding: 14px 24px; font-size: 13px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.2s; flex: 2; }
+        .btn-submit:hover { background: var(--primary); }
+        .btn-cancel { background: #cbd5e1; color: #475569; border: none; padding: 14px 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.2s; flex: 1; display: none; }
 
-        /* Preview de Corridas */
-        .preview-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
-        .preview-table th, .preview-table td { border: 1px solid #eee; padding: 10px; text-align: left; }
-        .preview-table th { background: #f4f4f4; font-weight: bold; }
+        /* Listagem de Itens Gerenciáveis */
+        .items-list { margin-top: 20px; }
+        .item-row { background: var(--white); border: 1px solid #e2e8f0; border-radius: 6px; padding: 16px 20px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; transition: 0.2s; }
+        .item-row:hover { border-color: #94a3b8; background: #fafbfc; }
+        .item-info h4 { margin: 0 0 4px 0; font-size: 15px; font-weight: 700; }
+        .item-info p { margin: 0; font-size: 12px; color: #64748b; }
+        
+        .item-actions { display: flex; gap: 8px; }
+        .btn-edit { background: #e2e8f0; color: #1e293b; border: none; width: 36px; height: 36px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .btn-edit:hover { background: var(--dark); color: white; }
+        .btn-delete { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: none; width: 36px; height: 36px; border-radius: 4px; cursor: pointer; transition: 0.2s; }
+        .btn-delete:hover { background: #ef4444; color: white; }
     </style>
 </head>
 <body>
 
     <div class="dashboard">
-        <h1><i class="fas fa-running"></i> Manual do Corredor Painel</h1>
+        <h1>Painel Geral do <span>Administrador</span></h1>
         
-        <!-- Navegação das Abas -->
         <div class="tabs-nav">
-            <button class="tab-btn active" onclick="switchTab('aba-artigos')"><i class="fas fa-pen-nib"></i> Criar Artigo</button>
-            <button class="tab-btn" onclick="switchTab('aba-corridas')"><i class="fas fa-calendar-alt"></i> Atualizar Corridas</button>
+            <button class="tab-btn active" onclick="alterarSecao('novidades', this)"><i class="fas fa-bolt"></i> Novidades</button>
+            <button class="tab-btn" onclick="alterarSecao('comparativos', this)"><i class="fas fa-columns"></i> Comparativos</button>
+            <button class="tab-btn" onclick="alterarSecao('dicas', this)"><i class="fas fa-brain"></i> Dicas & Artigos</button>
+            <button class="tab-btn" onclick="alterarSecao('corridas', this)"><i class="fas fa-calendar-alt"></i> Próximas Corridas</button>
+        </div>
+        
+        <div class="form-container">
+            <h3 id="form-titulo">Adicionar Item</h3>
+            <form id="form-gerenciador" onsubmit="salvarItem(event)">
+                <input type="hidden" id="item-id">
+                
+                <div class="grid-form" id="campos-dinamicos">
+                    </div>
+                
+                <div class="form-actions">
+                    <button type="submit" class="btn-submit">Salvar no Supabase</button>
+                    <button type="button" class="btn-cancel" id="btn-cancelar" onclick="resetForm()">Cancelar Edição</button>
+                </div>
+            </form>
         </div>
 
-        <!-- ABA 1: GERADOR DE ARTIGOS -->
-        <div id="aba-artigos" class="tab-content active">
-            <p style="font-size: 13px; color: #666; text-align: center;">Crie o código estruturado para o carrossel de dicas da sua página inicial.</p>
-            
-            <label for="categoria">Categoria (Tag do Card)</label>
-            <select id="categoria">
-                <option value="Treinamento">Treinamento</option>
-                <option value="Nutrição">Nutrição</option>
-                <option value="Saúde">Saúde</option>
-                <option value="Acessórios">Acessórios</option>
-            </select>
-
-            <label for="titulo">Título do Artigo</label>
-            <input type="text" id="titulo" placeholder="Ex: Como Escolher o Tênis de Corrida Certo">
-
-            <label for="imagem">Link da Imagem (URL do Unsplash ou Servidor)</label>
-            <input type="text" id="imagem" placeholder="Ex: https://images.unsplash.com/photo-...">
-
-            <label for="resumo">Resumo Curto (Aparece no Card)</label>
-            <textarea id="resumo" placeholder="Escreva um resumo cativante de até duas linhas..."></textarea>
-
-            <label for="link">Nome do arquivo HTML do artigo</label>
-            <input type="text" id="link" placeholder="Ex: artigos/meu-novo-artigo.html">
-
-            <button class="btn-action" onclick="gerarCodigoCard()"><i class="fas fa-code"></i> Gerar Código do Card</button>
-            
-            <div class="output-container" id="outputArtigo" style="display: none;">
-                <label>Código do Card Pronto! Copie abaixo:</label>
-                <pre><code id="codigoResultArtigo"></code></pre>
-                <p class="copy-info"><i class="fas fa-check-circle"></i> Cole na div "artigos-carousel" do seu index.html</p>
-            </div>
+        <div class="items-list">
+            <h3 style="font-family:'Space Grotesk', sans-serif; text-transform:uppercase; font-size:14px; margin-bottom:15px; color:#475569;">Conteúdos Sincronizados na Nuvem</h3>
+            <div id="lista-conteudos"></div>
         </div>
-
-        <!-- ABA 2: GERADOR DE CALENDÁRIO DE CORRIDAS (AUTOMATIZADO) -->
-        <div id="aba-corridas" class="tab-content">
-            <p style="font-size: 13px; color: #666; text-align: center;">Clique no botão abaixo para rodar o rastreador e atualizar o arquivo index.html automaticamente.</p>
-            
-            <table class="preview-table">
-                <thead>
-                    <tr>
-                        <th>Data</th>
-                        <th>Evento</th>
-                        <th>Local</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr><td>14/06/2026</td><td><b>Maratona do Rio 2026</b></td><td>Rio de Janeiro - RJ</td></tr>
-                    <tr><td>28/06/2026</td><td><b>Circuito das Estações - Inverno</b></td><td>São Paulo - SP</td></tr>
-                    <tr><td>19/07/2026</td><td><b>Meia Maratona de BH</b></td><td>Belo Horizonte - MG</td></tr>
-                    <tr><td>23/08/2026</td><td><b>Meia Maratona Internacional de SP</b></td><td>São Paulo - SP</td></tr>
-                </tbody>
-            </table>
-
-            <button class="btn-action" id="btn-atualizar-corridas" onclick="gerarCodigoTabelaCorridas()"><i class="fas fa-sync-alt"></i> Sincronizar e Gravar no index.html</button>
-
-            <div class="output-container" id="outputCorridas" style="display: none;">
-                <label>Status do Sistema:</label>
-                <pre><code id="codigoResultCorridas"></code></pre>
-                <p class="copy-info" id="status-corridas-icone"><i class="fas fa-check-circle"></i> Sincronização concluída nos arquivos locais!</p>
-            </div>
-        </div>
-
     </div>
 
-    <!-- SCRIPT DE INTELIGÊNCIA DO PAINEL -->
     <script>
-        // Alternador de Abas
-        function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+        // --- CONFIGURAÇÃO DE CREDENCIAIS DO SUPABASE ---
+        const SUPABASE_URL = "https://pdyjjugutyxvppljqyiy.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkeWpqdWd1dHl4dnBwbGpxeWl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMTIyODYsImV4cCI6MjA5NDU4ODI4Nn0.NXGuS6Tmw64vdv0iBzwFw87FyZ-Fx-o9UhG1Fy36J70";
+        const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let secaoAtiva = 'novidades';
+        let dadosLocais = [];
+
+        // Mapeamento dos campos necessários por tabela
+        const configuracaoCampos = {
+            novidades: `
+                <div><label>Tag / Categoria</label><input type="text" id="tag" required placeholder="Ex: Pista & Asfalto"></div>
+                <div><label>Título do Lançamento</label><input type="text" id="titulo" required placeholder="Ex: Olympikus Corre 4"></div>
+                <div class="full-width"><label>URL da Imagem</label><input type="url" id="imagem" required></div>
+                <div class="full-width"><label>Link do Card (Review Completo)</label><input type="text" id="link" required placeholder="Ex: reviews/olympikus-corre-4.html"></div>
+                <div class="full-width"><label>Resumo Técnico</label><textarea id="resumo" required></textarea></div>`,
+            comparativos: `
+                <div><label>Modelo Principal (A)</label><input type="text" id="modeloA" required placeholder="Ex: Nike Pegasus 40"></div>
+                <div><label>Concorrente Direto (B)</label><input type="text" id="modeloB" required placeholder="Ex: Asics Novablast 4"></div>
+                <div class="full-width"><label>Confronto de Objetivo</label><input type="text" id="confronto" required placeholder="Ex: Versatilidade vs Amortecimento"></div>
+                <div class="full-width"><label>Veredito Manual</label><input type="text" id="veredito" required placeholder="Ex: Asics vence pelo conforto"></div>
+                <div class="full-width"><label>Link de Afiliado (Onde Comprar)</label><input type="url" id="link" required></div>`,
+            dicas: `
+                <div><label>Tag / Categoria</label><input type="text" id="tag" required placeholder="Ex: Fisiologia"></div>
+                <div><label>Título do Artigo</label><input type="text" id="titulo" required placeholder="Ex: Guia de Canelite"></div>
+                <div class="full-width"><label>URL da Imagem</label><input type="url" id="imagem" required></div>
+                <div class="full-width"><label>Link do Card (Artigo Completo)</label><input type="text" id="link" required placeholder="Ex: artigos/como-evitar-canelite.html"></div>
+                <div class="full-width"><label>Resumo Educativo</label><textarea id="resumo" required></textarea></div>`,
+            corridas: `
+                <div><label>Data da Largada</label><input type="text" id="data" required placeholder="Ex: 14/06/2026"></div>
+                <div><label>Nome do Evento / Prova</label><input type="text" id="evento" required placeholder="Ex: Maratona do Rio 2026"></div>
+                <div><label>Cidade - Estado</label><input type="text" id="local" required placeholder="Ex: Rio de Janeiro - RJ"></div>
+                <div><label>Distâncias Disponíveis</label><input type="text" id="distancias" required placeholder="Ex: 5k, 10k, 21k, 42k"></div>
+                <div class="full-width"><label>Link de Inscrição Oficial</label><input type="url" id="link" required></div>`
+        };
+
+        async function buscarDadosDaNuvem() {
+            // Seleciona e ordena os registros pelo ID de forma decrescente (novos primeiro)
+            const { data, error } = await _supabase.from(secaoAtiva).select('*').order('id', { ascending: false });
+            if (error) {
+                console.error(error);
+                alert("Erro ao buscar dados da tabela: " + secaoAtiva + ". Verifique se desativou o RLS no Supabase.");
+            } else {
+                dadosLocais = data;
+                renderizarLista();
+            }
+        }
+
+        function alterarSecao(novaSecao, botao) {
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
+            botao.classList.add('active');
+            secaoAtiva = novaSecao;
+            resetForm();
+            renderizarCampos();
+            buscarDadosDaNuvem();
         }
 
-        // Lógica do Gerador de Artigos
-        function gerarCodigoCard() {
-            const categoria = document.getElementById('categoria').value;
-            const titulo = document.getElementById('titulo').value;
-            const imagem = document.getElementById('imagem').value || 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=600';
-            const resumo = document.getElementById('resumo').value;
-            const link = document.getElementById('link').value || '#';
-
-            const codigoHTML = `<!-- Card Dinâmico: ${titulo} -->
-<div class="post-card">
-    <img src="${imagem}" alt="${titulo}">
-    <div class="post-body">
-        <span class="post-category">${categoria}</span>
-        <h3>${titulo}</h3>
-        <p>${resumo}</p>
-        <a href="${link}" class="read-more">Ler Artigo <i class="fas fa-arrow-right"></i></a>
-    </div>
-</div>`;
-
-            document.getElementById('codigoResultArtigo').innerText = codigoHTML;
-            document.getElementById('outputArtigo').style.display = 'block'; // Corrigido de style.style.display
+        function renderizarCampos() {
+            document.getElementById('campos-dinamicos').innerHTML = configuracaoCampos[secaoAtiva];
         }
 
-        // Lógica da Automação Integrada via Servidor de Bastidores (Node.js)
-        function gerarCodigoTabelaCorridas() {
-            const botao = document.getElementById('btn-atualizar-corridas');
-            const originalText = botao.innerHTML;
+        function renderizarLista() {
+            const container = document.getElementById('lista-conteudos');
+            container.innerHTML = '';
             
-            botao.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando ao Robô e Gravando...';
-            botao.style.background = '#555';
-            botao.disabled = true;
+            if(dadosLocais.length === 0) {
+                container.innerHTML = '<p style="font-size:13px; color:#64748b; text-align:center; padding:20px;">Nenhum conteúdo salvo na nuvem nesta seção.</p>';
+                return;
+            }
 
-            // Envia o sinal para o arquivo servidor.js rodar em segundo plano
-            fetch('http://localhost:3000/atualizar-agenda', { method: 'POST' })
-            .then(res => {
-                if (!res.ok) throw new Error('Falha na resposta do servidor');
-                return res.json();
-            })
-            .then(data => {
-                if(data.success) {
-                    document.getElementById('outputCorridas').style.display = 'block';
-                    document.getElementById('codigoResultCorridas').innerText = "Sucesso: " + data.message + "\n\nO robô do sistema reescreveu a seção <tbody> dentro do seu arquivo index.html automaticamente. Abra o site principal e atualize a página para ver as mudanças!";
-                    
-                    botao.innerHTML = '<i class="fas fa-check"></i> Arquivo index.html Atualizado!';
-                    botao.style.background = '#2e7d32';
-                } else {
-                    alert("Erro interno da automação: " + data.message);
-                    resetBotao(botao, originalText);
-                }
-            })
-            .catch(err => {
-                alert("O sistema automatizado está desligado!\n\nPara fazê-lo rodar, abra seu terminal na pasta do projeto e digite o comando:\nnode servidor.js");
-                resetBotao(botao, originalText);
+            dadosLocais.forEach(item => {
+                const titulo = item.titulo || item.evento || `${item.modeloA} vs ${item.modeloB}`;
+                const sub = item.tag || item.local || item.confronto;
+
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <div class="item-info">
+                        <h4>${titulo}</h4>
+                        <p>${sub}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn-edit" onclick="carregarParaEdicao(${item.id})"><i class="fas fa-edit"></i></button>
+                        <button class="btn-delete" onclick="excluirItem(${item.id})"><i class="fas fa-trash-alt"></i></button>
+                    </div>`;
+                container.appendChild(row);
             });
         }
 
-        function resetBotao(botao, textoOriginal) {
-            botao.innerHTML = textoOriginal;
-            botao.style.background = '#ff4d00';
-            botao.disabled = false;
+        function carregarParaEdicao(id) {
+            const item = dadosLocais.find(x => x.id === id);
+            if(!item) return;
+
+            document.getElementById('item-id').value = item.id;
+            document.getElementById('form-titulo').innerText = "Editar Conteúdo Existente";
+            document.getElementById('btn-cancelar').style.display = 'inline-block';
+
+            Object.keys(item).forEach(key => {
+                const el = document.getElementById(key);
+                if(el) el.value = item[key];
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        async function salvarItem(e) {
+            e.preventDefault();
+            const id = document.getElementById('item-id').value;
+            const item = {};
+
+            const inputs = document.getElementById('campos-dinamicos').querySelectorAll('input, select, textarea');
+            inputs.forEach(input => { item[input.id] = input.value; });
+
+            let resposta;
+            if (id) {
+                // Atualização segura via ID exclusivo (UPDATE)
+                resposta = await _supabase.from(secaoAtiva).update(item).eq('id', id);
+            } else {
+                // Inserção de novo registro na nuvem (INSERT)
+                resposta = await _supabase.from(secaoAtiva).insert([item]);
+            }
+
+            if (resposta.error) {
+                alert("Erro operacional ao salvar no Supabase: " + resposta.error.message);
+            } else {
+                resetForm();
+                buscarDadosDaNuvem();
+            }
+        }
+
+        async function excluirItem(id) {
+            if(!confirm("Tem certeza que deseja remover este registro da nuvem? O site principal atualizará na hora!")) return;
+
+            const { error } = await _supabase.from(secaoAtiva).delete().eq('id', id);
+            if (error) {
+                alert("Erro ao remover do Supabase: " + error.message);
+            } else {
+                buscarDadosDaNuvem();
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('form-gerenciador').reset();
+            document.getElementById('item-id').value = '';
+            document.getElementById('form-titulo').innerText = "Adicionar Item";
+            document.getElementById('btn-cancelar').style.display = 'none';
+        }
+
+        window.onload = () => {
+            renderizarCampos();
+            buscarDadosDaNuvem();
+        };
     </script>
 </body>
 </html>
