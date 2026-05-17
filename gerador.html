@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel do Administrador | Manual do Corredor</title>
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; padding: 40px 20px; color: #333; margin: 0; }
+        .dashboard { max-width: 700px; margin: 0 auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        h1 { text-align: center; margin-bottom: 25px; font-size: 26px; color: #ff4d00; font-weight: 700; text-transform: uppercase; }
+        
+        /* Sistema de Abas (Tabs) */
+        .tabs-nav { display: flex; gap: 10px; margin-bottom: 25px; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .tab-btn { flex: 1; background: #e4e6eb; border: none; padding: 12px; font-weight: bold; font-size: 14px; cursor: pointer; border-radius: 6px; color: #444; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .tab-btn.active { background: #ff4d00; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Formulários e Componentes */
+        label { font-weight: bold; display: block; margin-top: 15px; margin-bottom: 5px; font-size: 14px; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 14px; background: #f9f9f9; }
+        input:focus, select:focus, textarea:focus { border-color: #ff4d00; background: #fff; outline: none; }
+        textarea { height: 90px; resize: none; }
+        
+        .btn-action { background: #ff4d00; color: white; border: none; padding: 14px 20px; border-radius: 6px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 25px; font-size: 16px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-action:hover { background: #121212; }
+        
+        /* Output de Código */
+        .output-container { margin-top: 30px; border-top: 2px dashed #ff4d00; padding-top: 20px; }
+        pre { background: #1e1e1e; color: #d4d4d4; padding: 20px; border-radius: 6px; overflow-x: auto; font-size: 13px; max-height: 250px; }
+        .copy-info { color: #2e7d32; font-weight: bold; text-align: center; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; }
+
+        /* Preview de Corridas */
+        .preview-table { width: 100%; border-collapse: collapse; margin-top: 15px; font-size: 13px; }
+        .preview-table th, .preview-table td { border: 1px solid #eee; padding: 10px; text-align: left; }
+        .preview-table th { background: #f4f4f4; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        <h1><i class="fas fa-running"></i> Manual do Corredor Painel</h1>
+        
+        <!-- Navegação das Abas -->
+        <div class="tabs-nav">
+            <button class="tab-btn active" onclick="switchTab('aba-artigos')"><i class="fas fa-pen-nib"></i> Criar Artigo</button>
+            <button class="tab-btn" onclick="switchTab('aba-corridas')"><i class="fas fa-calendar-alt"></i> Atualizar Corridas</button>
+        </div>
+
+        <!-- ABA 1: GERADOR DE ARTIGOS -->
+        <div id="aba-artigos" class="tab-content active">
+            <p style="font-size: 13px; color: #666; text-align: center;">Crie o código estruturado para o carrossel de dicas da sua página inicial.</p>
+            
+            <label for="categoria">Categoria (Tag do Card)</label>
+            <select id="categoria">
+                <option value="Treinamento">Treinamento</option>
+                <option value="Nutrição">Nutrição</option>
+                <option value="Saúde">Saúde</option>
+                <option value="Acessórios">Acessórios</option>
+            </select>
+
+            <label for="titulo">Título do Artigo</label>
+            <input type="text" id="titulo" placeholder="Ex: Como Escolher o Tênis de Corrida Certo">
+
+            <label for="imagem">Link da Imagem (URL do Unsplash ou Servidor)</label>
+            <input type="text" id="imagem" placeholder="Ex: https://images.unsplash.com/photo-...">
+
+            <label for="resumo">Resumo Curto (Aparece no Card)</label>
+            <textarea id="resumo" placeholder="Escreva um resumo cativante de até duas linhas..."></textarea>
+
+            <label for="link">Nome do arquivo HTML do artigo</label>
+            <input type="text" id="link" placeholder="Ex: artigos/meu-novo-artigo.html">
+
+            <button class="btn-action" onclick="gerarCodigoCard()"><i class="fas fa-code"></i> Gerar Código do Card</button>
+            
+            <div class="output-container" id="outputArtigo" style="display: none;">
+                <label>Código do Card Pronto! Copie abaixo:</label>
+                <pre><code id="codigoResultArtigo"></code></pre>
+                <p class="copy-info"><i class="fas fa-check-circle"></i> Cole na div "artigos-carousel" do seu index.html</p>
+            </div>
+        </div>
+
+        <!-- ABA 2: GERADOR DE CALENDÁRIO DE CORRIDAS (AUTOMATIZADO) -->
+        <div id="aba-corridas" class="tab-content">
+            <p style="font-size: 13px; color: #666; text-align: center;">Clique no botão abaixo para rodar o rastreador e atualizar o arquivo index.html automaticamente.</p>
+            
+            <table class="preview-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Evento</th>
+                        <th>Local</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>14/06/2026</td><td><b>Maratona do Rio 2026</b></td><td>Rio de Janeiro - RJ</td></tr>
+                    <tr><td>28/06/2026</td><td><b>Circuito das Estações - Inverno</b></td><td>São Paulo - SP</td></tr>
+                    <tr><td>19/07/2026</td><td><b>Meia Maratona de BH</b></td><td>Belo Horizonte - MG</td></tr>
+                    <tr><td>23/08/2026</td><td><b>Meia Maratona Internacional de SP</b></td><td>São Paulo - SP</td></tr>
+                </tbody>
+            </table>
+
+            <button class="btn-action" id="btn-atualizar-corridas" onclick="gerarCodigoTabelaCorridas()"><i class="fas fa-sync-alt"></i> Sincronizar e Gravar no index.html</button>
+
+            <div class="output-container" id="outputCorridas" style="display: none;">
+                <label>Status do Sistema:</label>
+                <pre><code id="codigoResultCorridas"></code></pre>
+                <p class="copy-info" id="status-corridas-icone"><i class="fas fa-check-circle"></i> Sincronização concluída nos arquivos locais!</p>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPT DE INTELIGÊNCIA DO PAINEL -->
+    <script>
+        // Alternador de Abas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+
+        // Lógica do Gerador de Artigos
+        function gerarCodigoCard() {
+            const categoria = document.getElementById('categoria').value;
+            const titulo = document.getElementById('titulo').value;
+            const imagem = document.getElementById('imagem').value || 'https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?q=80&w=600';
+            const resumo = document.getElementById('resumo').value;
+            const link = document.getElementById('link').value || '#';
+
+            const codigoHTML = `<!-- Card Dinâmico: ${titulo} -->
+<div class="post-card">
+    <img src="${imagem}" alt="${titulo}">
+    <div class="post-body">
+        <span class="post-category">${categoria}</span>
+        <h3>${titulo}</h3>
+        <p>${resumo}</p>
+        <a href="${link}" class="read-more">Ler Artigo <i class="fas fa-arrow-right"></i></a>
+    </div>
+</div>`;
+
+            document.getElementById('codigoResultArtigo').innerText = codigoHTML;
+            document.getElementById('outputArtigo').style.display = 'block'; // Corrigido de style.style.display
+        }
+
+        // Lógica da Automação Integrada via Servidor de Bastidores (Node.js)
+        function gerarCodigoTabelaCorridas() {
+            const botao = document.getElementById('btn-atualizar-corridas');
+            const originalText = botao.innerHTML;
+            
+            botao.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Conectando ao Robô e Gravando...';
+            botao.style.background = '#555';
+            botao.disabled = true;
+
+            // Envia o sinal para o arquivo servidor.js rodar em segundo plano
+            fetch('http://localhost:3000/atualizar-agenda', { method: 'POST' })
+            .then(res => {
+                if (!res.ok) throw new Error('Falha na resposta do servidor');
+                return res.json();
+            })
+            .then(data => {
+                if(data.success) {
+                    document.getElementById('outputCorridas').style.display = 'block';
+                    document.getElementById('codigoResultCorridas').innerText = "Sucesso: " + data.message + "\n\nO robô do sistema reescreveu a seção <tbody> dentro do seu arquivo index.html automaticamente. Abra o site principal e atualize a página para ver as mudanças!";
+                    
+                    botao.innerHTML = '<i class="fas fa-check"></i> Arquivo index.html Atualizado!';
+                    botao.style.background = '#2e7d32';
+                } else {
+                    alert("Erro interno da automação: " + data.message);
+                    resetBotao(botao, originalText);
+                }
+            })
+            .catch(err => {
+                alert("O sistema automatizado está desligado!\n\nPara fazê-lo rodar, abra seu terminal na pasta do projeto e digite o comando:\nnode servidor.js");
+                resetBotao(botao, originalText);
+            });
+        }
+
+        function resetBotao(botao, textoOriginal) {
+            botao.innerHTML = textoOriginal;
+            botao.style.background = '#ff4d00';
+            botao.disabled = false;
+        }
+    </script>
+</body>
+</html>
