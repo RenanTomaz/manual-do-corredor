@@ -202,6 +202,7 @@
                 </tbody>
             </table>
         </div>
+        <div id="paginacao-container"></div>
     </section>
 
     <footer>
@@ -224,6 +225,77 @@
         const SUPABASE_URL = "https://pdyjjugutyxvppljqyiy.supabase.co";
         const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBkeWpqdWd1dHl4dnBwbGpxeWl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzkwMTIyODYsImV4cCI6MjA5NDU4ODI4Nn0.NXGuS6Tmw64vdv0iBzwFw87FyZ-Fx-o9UhG1Fy36J70";
         const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // VARIÁVEIS GLOBAIS DE PAGINAÇÃO DO GRID DE CORRIDAS
+        let paginaAtualCorridas = 0;
+        const itensPorPaginaCorridas = 10;
+
+        // FUNÇÃO EXCLUSIVA PARA CARREGAR CORRIDAS COM RANGES NATIVOS DO SUPABASE
+        async function carregarMesaCorridas() {
+            try {
+                const de = paginaAtualCorridas * itensPorPaginaCorridas;
+                const ate = de + itensPorPaginaCorridas - 1;
+
+                document.getElementById('corridas-render-target').innerHTML = '<tr><td colspan="5" class="loading-pulse"><i class="fas fa-spinner fa-spin"></i> Atualizando listagem de provas...</td></tr>';
+
+                const resCorridas = await _supabase
+                    .from('corridas')
+                    .select('*', { count: 'exact' })
+                    .order('id', { ascending: true })
+                    .range(de, ate);
+
+                if(resCorridas.data && resCorridas.data.length > 0) {
+                    document.getElementById('corridas-render-target').innerHTML = resCorridas.data.map(cr => `
+                        <tr>
+                            <td>${cr.data}</td>
+                            <td><b>${cr.evento}</b></td>
+                            <td>${cr.local}</td>
+                            <td>${cr.distancias}</td>
+                            <td><a href="${cr.link}" target="_blank" class="status-badge status-open" style="text-decoration:none;">Inscrever-se <i class="fas fa-external-link-alt" style="font-size:10px;"></i></a></td>
+                        </tr>`).join('');
+                    
+                    renderizarControlesPaginacao(resCorridas.count);
+                } else {
+                    document.getElementById('corridas-render-target').innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; font-size:13px; color:#64748b;">Nenhuma corrida mapeada no momento.</td></tr>';
+                    document.getElementById('paginacao-container').innerHTML = '';
+                }
+            } catch (err) {
+                console.error("Erro ao paginar dados de corridas:", err);
+            }
+        }
+
+        // FUNÇÃO DE RENDERIZAÇÃO DOS BOTÕES DINÂMICOS
+        function renderizarControlesPaginacao(totalItens) {
+            const totalPaginas = Math.ceil(totalItens / itensPorPaginaCorridas);
+            const container = document.getElementById('paginacao-container');
+
+            if (totalPaginas <= 1) {
+                container.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = `
+                <div style="display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 25px; font-family: 'Montserrat', sans-serif; font-size: 13px;">
+                    <button id="btn-ant-corrida" ${paginaAtualCorridas === 0 ? 'disabled' : ''} class="btn-table" style="padding: 6px 14px; cursor: pointer;">Anterior</button>
+                    <span style="color: #64748b; font-weight: 500;">Página <b style="color: var(--dark);">${paginaAtualCorridas + 1}</b> de <b>${totalPaginas}</b></span>
+                    <button id="btn-prox-corrida" ${paginaAtualCorridas >= totalPaginas - 1 ? 'disabled' : ''} class="btn-table" style="padding: 6px 14px; cursor: pointer;">Próximo</button>
+                </div>
+            `;
+
+            document.getElementById('btn-ant-corrida').addEventListener('click', () => {
+                if (paginaAtualCorridas > 0) {
+                    paginaAtualCorridas--;
+                    carregarMesaCorridas();
+                }
+            });
+
+            document.getElementById('btn-prox-corrida').addEventListener('click', () => {
+                if (paginaAtualCorridas < totalPaginas - 1) {
+                    paginaAtualCorridas++;
+                    carregarMesaCorridas();
+                }
+            });
+        }
 
         async function inicializarSiteDinamico() {
             try {
@@ -280,20 +352,8 @@
                     document.getElementById('dicas-render-target').innerHTML = '<div class="loading-pulse">Nenhum artigo educacional publicado.</div>';
                 }
 
-                // 4. Renderizar Corridas
-                const resCorridas = await _supabase.from('corridas').select('*').order('id', { ascending: true });
-                if(resCorridas.data && resCorridas.data.length > 0) {
-                    document.getElementById('corridas-render-target').innerHTML = resCorridas.data.map(cr => `
-                        <tr>
-                            <td>${cr.data}</td>
-                            <td><b>${cr.evento}</b></td>
-                            <td>${cr.local}</td>
-                            <td>${cr.distancias}</td>
-                            <td><a href="${cr.link}" target="_blank" class="status-badge status-open" style="text-decoration:none;">Inscrever-se <i class="fas fa-external-link-alt" style="font-size:10px;"></i></a></td>
-                        </tr>`).join('');
-                } else {
-                    document.getElementById('corridas-render-target').innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; font-size:13px; color:#64748b;">Nenhuma corrida mapeada no momento.</td></tr>';
-                }
+                // 4. Inicializar carga paginada de Corridas
+                await carregarMesaCorridas();
 
             } catch (err) {
                 console.error("Erro na carga assíncrona:", err);
