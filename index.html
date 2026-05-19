@@ -95,6 +95,10 @@
 
         .loading-pulse { text-align: center; padding: 35px; color: var(--gray-text); font-weight: 600; font-size: 14px; grid-column: span 3; width: 100%; }
 
+        /* Estilo do filtro de estados */
+        .filtro-estados { padding: 10px 16px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; border: 2px solid var(--border-color); border-radius: 6px; background-color: var(--white); color: var(--dark); outline: none; transition: 0.2s; cursor: pointer; margin-bottom: 25px; width: 100%; max-width: 250px; }
+        .filtro-estados:focus { border-color: var(--primary); }
+
         @media (max-width: 768px) {
             .menu-toggle { display: block; }
             .nav-links { display: none; flex-direction: column; position: absolute; top: 55px; left: -24px; right: -24px; background: var(--dark); padding: 30px 24px; gap: 20px; border-top: 1px solid #1e293b; }
@@ -186,6 +190,38 @@
             <h2>Calendário <span>Nacional de Provas</span></h2>
             <p>Planeje sua temporada. O Manual do Corredor mapeia as principais corridas do Brasil.</p>
         </div>
+        
+        <select id="filtro-estados" class="filtro-estados">
+            <option value="">Todos os Estados</option>
+            <option value="AC">Acre (AC)</option>
+            <option value="AL">Alagoas (AL)</option>
+            <option value="AP">Amapá (AP)</option>
+            <option value="AM">Amazonas (AM)</option>
+            <option value="BA">Bahia (BA)</option>
+            <option value="CE">Ceará (CE)</option>
+            <option value="DF">Distrito Federal (DF)</option>
+            <option value="ES">Espírito Santo (ES)</option>
+            <option value="GO">Goiás (GO)</option>
+            <option value="MA">Maranhão (MA)</option>
+            <option value="MT">Mato Grosso (MT)</option>
+            <option value="MS">Mato Grosso do Sul (MS)</option>
+            <option value="MG">Minas Gerais (MG)</option>
+            <option value="PA">Pará (PA)</option>
+            <option value="PB">Paraíba (PB)</option>
+            <option value="PR">Paraná (PR)</option>
+            <option value="PE">Pernambuco (PE)</option>
+            <option value="PI">Piauí (PI)</option>
+            <option value="RJ">Rio de Janeiro (RJ)</option>
+            <option value="RN">Rio Grande do Norte (RN)</option>
+            <option value="RS">Rio Grande do Sul (RS)</option>
+            <option value="RO">Rondônia (RO)</option>
+            <option value="RR">Roraima (RR)</option>
+            <option value="SC">Santa Catarina (SC)</option>
+            <option value="SP">São Paulo (SP)</option>
+            <option value="SE">Sergipe (SE)</option>
+            <option value="TO">Tocantins (TO)</option>
+        </select>
+
         <div class="table-container">
             <table>
                 <thead>
@@ -229,6 +265,7 @@
         // VARIÁVEIS GLOBAIS DE PAGINAÇÃO DO GRID DE CORRIDAS
         let paginaAtualCorridas = 0;
         const itensPorPaginaCorridas = 10;
+        let estadoFiltro = "";
 
         // FUNÇÃO EXCLUSIVA PARA CARREGAR CORRIDAS COM RANGES NATIVOS DO SUPABASE
         async function carregarMesaCorridas() {
@@ -238,9 +275,15 @@
 
                 document.getElementById('corridas-render-target').innerHTML = '<tr><td colspan="5" class="loading-pulse"><i class="fas fa-spinner fa-spin"></i> Atualizando listagem de provas...</td></tr>';
 
-                const resCorridas = await _supabase
+                let query = _supabase
                     .from('corridas')
-                    .select('*', { count: 'exact' })
+                    .select('*', { count: 'exact' });
+
+                if (estadoFiltro) {
+                    query = query.ilike('local', `%-${estadoFiltro}%`);
+                }
+
+                const resCorridas = await query
                     .order('id', { ascending: true })
                     .range(de, ate);
 
@@ -256,7 +299,7 @@
                     
                     renderizarControlesPaginacao(resCorridas.count);
                 } else {
-                    document.getElementById('corridas-render-target').innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; font-size:13px; color:#64748b;">Nenhuma corrida mapeada no momento.</td></tr>';
+                    document.getElementById('corridas-render-target').innerHTML = '<tr><td colspan="5" style="text-align:center; padding:20px; font-size:13px; color:#64748b;">Nenhuma corrida mapeada no momento para este estado.</td></tr>';
                     document.getElementById('paginacao-container').innerHTML = '';
                 }
             } catch (err) {
@@ -299,6 +342,13 @@
 
         async function inicializarSiteDinamico() {
             try {
+                // Ouvinte do filtro de estados
+                document.getElementById('filtro-estados').addEventListener('change', (e) => {
+                    estadoFiltro = e.target.value;
+                    paginaAtualCorridas = 0;
+                    carregarMesaCorridas();
+                });
+
                 // 1. Renderizar Novidades
                 const resNovidades = await _supabase.from('novidades').select('*').order('id', { ascending: false });
                 if(resNovidades.data && resNovidades.data.length > 0) {
