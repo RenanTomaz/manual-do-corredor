@@ -105,13 +105,13 @@
         let secaoAtiva = 'novidades';
         let dadosLocais = [];
 
-        // Mapeamento dos campos necessários por tabela
+        // Mapeamento dos campos necessários por tabela (Ajustado seções de corridas)
         const configuracaoCampos = {
             novidades: `
                 <div><label>Tag / Categoria</label><input type="text" id="tag" required placeholder="Ex: Pista & Asfalto"></div>
                 <div><label>Título do Lançamento</label><input type="text" id="titulo" required placeholder="Ex: Olympikus Corre 4"></div>
                 <div class="full-width"><label>URL da Imagem</label><input type="url" id="imagem" required></div>
-                <div class="full-width"><label>Link do Card (Review Completo)</label><input type="text" id="link" required placeholder="Ex: reviews/olympikus-corre-4.html"></div>
+                <div class="full-width"><label>Link do Card (Review Computado)</label><input type="text" id="link" required placeholder="Ex: reviews/olympikus-corre-4.html"></div>
                 <div class="full-width"><label>Resumo Técnico</label><textarea id="resumo" required></textarea></div>`,
             comparativos: `
                 <div><label>Modelo Principal (A)</label><input type="text" id="modeloA" required placeholder="Ex: Nike Pegasus 40"></div>
@@ -128,13 +128,45 @@
             corridas: `
                 <div><label>Data da Largada</label><input type="text" id="data" required placeholder="Ex: 14/06/2026"></div>
                 <div><label>Nome do Evento / Prova</label><input type="text" id="evento" required placeholder="Ex: Maratona do Rio 2026"></div>
-                <div><label>Cidade - Estado</label><input type="text" id="local" required placeholder="Ex: Rio de Janeiro - RJ"></div>
-                <div><label>Distâncias Disponíveis</label><input type="text" id="distancias" required placeholder="Ex: 5k, 10k, 21k, 42k"></div>
+                <div><label>Cidade</label><input type="text" id="cidade" required placeholder="Ex: Rio de Janeiro"></div>
+                <div>
+                    <label>Estado (UF)</label>
+                    <select id="estado" required>
+                        <option value="">Selecione...</option>
+                        <option value="AC">Acre (AC)</option>
+                        <option value="AL">Alagoas (AL)</option>
+                        <option value="AP">Amapá (AP)</option>
+                        <option value="AM">Amazonas (AM)</option>
+                        <option value="BA">Bahia (BA)</option>
+                        <option value="CE">Ceará (CE)</option>
+                        <option value="DF">Distrito Federal (DF)</option>
+                        <option value="ES">Espírito Santo (ES)</option>
+                        <option value="GO">Goiás (GO)</option>
+                        <option value="MA">Maranhão (MA)</option>
+                        <option value="MT">Mato Grosso (MT)</option>
+                        <option value="MS">Mato Grosso do Sul (MS)</option>
+                        <option value="MG">Minas Gerais (MG)</option>
+                        <option value="PA">Pará (PA)</option>
+                        <option value="PB">Paraíba (PB)</option>
+                        <option value="PR">Paraná (PR)</option>
+                        <option value="PE">Pernambuco (PE)</option>
+                        <option value="PI">Piauí (PI)</option>
+                        <option value="RJ">Rio de Janeiro (RJ)</option>
+                        <option value="RN">Rio Grande do Norte (RN)</option>
+                        <option value="RS">Rio Grande do Sul (RS)</option>
+                        <option value="RO">Rondônia (RO)</option>
+                        <option value="RR">Roraima (RR)</option>
+                        <option value="SC">Santa Catarina (SC)</option>
+                        <option value="SP">São Paulo (SP)</option>
+                        <option value="SE">Sergipe (SE)</option>
+                        <option value="TO">Tocantins (TO)</option>
+                    </select>
+                </div>
+                <div class="full-width"><label>Distâncias Disponíveis</label><input type="text" id="distancias" required placeholder="Ex: 5k, 10k, 21k, 42k"></div>
                 <div class="full-width"><label>Link de Inscrição Oficial</label><input type="url" id="link" required></div>`
         };
 
         async function buscarDadosDaNuvem() {
-            // Seleciona e ordena os registros pelo ID de forma decrescente (novos primeiro)
             const { data, error } = await _supabase.from(secaoAtiva).select('*').order('id', { ascending: false });
             if (error) {
                 console.error(error);
@@ -169,7 +201,12 @@
 
             dadosLocais.forEach(item => {
                 const titulo = item.titulo || item.evento || `${item.modeloA} vs ${item.modeloB}`;
-                const sub = item.tag || item.local || item.confronto;
+                
+                // AJUSTADO: Monta a localização dinamicamente se for a tabela de corridas
+                let sub = item.tag || item.confronto;
+                if (secaoAtiva === 'corridas') {
+                    sub = item.cidade && item.estado ? `${item.cidade} - ${item.estado}` : item.local;
+                }
 
                 const row = document.createElement('div');
                 row.className = 'item-row';
@@ -211,10 +248,8 @@
 
             let resposta;
             if (id) {
-                // Atualização segura via ID exclusivo (UPDATE)
                 resposta = await _supabase.from(secaoAtiva).update(item).eq('id', id);
             } else {
-                // Inserção de novo registro na nuvem (INSERT)
                 resposta = await _supabase.from(secaoAtiva).insert([item]);
             }
 
