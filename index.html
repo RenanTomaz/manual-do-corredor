@@ -279,8 +279,9 @@
                     .from('corridas')
                     .select('*', { count: 'exact' });
 
+                // AJUSTADO: Agora inclui os espaços corretos do formato " - UF"
                 if (estadoFiltro) {
-                    query = query.ilike('local', `%-${estadoFiltro}%`);
+                    query = query.ilike('local', `% - ${estadoFiltro}%`);
                 }
 
                 const resCorridas = await query
@@ -345,7 +346,7 @@
                 // Ouvinte do filtro de estados
                 document.getElementById('filtro-estados').addEventListener('change', (e) => {
                     estadoFiltro = e.target.value;
-                    paginaAtualCorridas = 0;
+                    paginaAtualCorridas = 0; // Reseta a paginação ao mudar o filtro
                     carregarMesaCorridas();
                 });
 
