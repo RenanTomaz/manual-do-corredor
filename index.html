@@ -279,9 +279,9 @@
                     .from('corridas')
                     .select('*', { count: 'exact' });
 
-                // AJUSTADO: Agora inclui os espaços corretos do formato " - UF"
+                // CORRIGIDO: Agora filtra diretamente com correspondência exata na nova coluna 'estado'
                 if (estadoFiltro) {
-                    query = query.ilike('local', `% - ${estadoFiltro}%`);
+                    query = query.eq('estado', estadoFiltro);
                 }
 
                 const resCorridas = await query
@@ -293,7 +293,7 @@
                         <tr>
                             <td>${cr.data}</td>
                             <td><b>${cr.evento}</b></td>
-                            <td>${cr.local}</td>
+                            <td>${cr.cidade ? cr.cidade + ' - ' + cr.estado : cr.local}</td>
                             <td>${cr.distancias}</td>
                             <td><a href="${cr.link}" target="_blank" class="status-badge status-open" style="text-decoration:none;">Inscrever-se <i class="fas fa-external-link-alt" style="font-size:10px;"></i></a></td>
                         </tr>`).join('');
@@ -346,7 +346,7 @@
                 // Ouvinte do filtro de estados
                 document.getElementById('filtro-estados').addEventListener('change', (e) => {
                     estadoFiltro = e.target.value;
-                    paginaAtualCorridas = 0; // Reseta a paginação ao mudar o filtro
+                    paginaAtualCorridas = 0; 
                     carregarMesaCorridas();
                 });
 
