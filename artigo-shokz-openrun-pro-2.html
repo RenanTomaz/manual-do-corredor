@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Detalhada: Shokz OpenRun Pro 2 | Manual do Corredor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff5500;       /* Laranja Neon */
+            --primary-glow: rgba(255, 85, 0, 0.15);
+            --dark: #0f1115;          /* Grafite */
+            --dark-surface: #161920;  /* Superfície dos Cards */
+            --gray-text: #64748b;     /* Cinza dos textos */
+            --light-bg: #f4f6f9;      /* Fundo da página */
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light-bg); color: var(--dark); line-height: 1.6; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header simplificado */
+        header { background: var(--dark); padding: 18px 0; border-bottom: 2px solid var(--primary); }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--white); letter-spacing: -1px; }
+        .logo span { color: var(--primary); font-style: italic; }
+
+        /* Artigo Estrutura */
+        article { background: var(--white); padding: 50px 0; margin-top: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 30px; margin-bottom: 40px; }
+        .category-badge { background: var(--dark); color: var(--white); padding: 6px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; border-left: 3px solid var(--primary); display: inline-block; margin-bottom: 15px; }
+        
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 15px; }
+        .meta-info { font-size: 13px; color: var(--gray-text); font-weight: 500; }
+        .meta-info span { color: var(--primary); font-weight: 700; }
+
+        /* Banner Principal */
+        .main-banner { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; margin-bottom: 40px; }
+        .main-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Caixa de Destaque / CTA Rápido */
+        .cta-box { background: var(--dark-surface); color: var(--white); padding: 30px; border-radius: 8px; margin-bottom: 40px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .cta-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 5px; }
+        .cta-box p { color: #cbd5e1; font-size: 14px; }
+        
+        .btn-amazon { background: var(--primary); color: var(--white); padding: 14px 28px; text-decoration: none; border-radius: 4px; font-weight: 700; text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3); }
+        .btn-amazon:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 85, 0, 0.5); }
+
+        /* Conteúdo de Texto */
+        .content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin: 35px 0 15px; letter-spacing: -0.5px; }
+        .content p { font-size: 16px; color: #334155; margin-bottom: 20px; text-align: justify; }
+        
+        /* Lista de Especificações */
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0; }
+        .spec-item { background: var(--light-bg); padding: 15px 20px; border-radius: 6px; border-left: 3px solid var(--dark); }
+        .spec-item strong { display: block; font-size: 12px; text-transform: uppercase; color: var(--gray-text); }
+        .spec-item span { font-size: 15px; font-weight: 700; color: var(--dark); }
+
+        /* Bloco de Citação */
+        blockquote { background: #fff8f5; border-left: 4px solid var(--primary); padding: 25px; margin: 35px 0; font-style: italic; font-weight: 500; color: #1e293b; border-radius: 0 8px 8px 0; position: relative; }
+        blockquote::before { content: '"'; font-family: 'Space Grotesk', sans-serif; font-size: 60px; color: rgba(255, 85, 0, 0.1); position: absolute; top: -10px; left: 10px; }
+
+        /* Galeria de Fotos Mini */
+        .gallery-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+        .image-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
+        .gallery-item { height: 180px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .gallery-item img:hover { transform: scale(1.05); }
+
+        /* Rodapé de Conversão */
+        .article-footer-cta { text-align: center; background: var(--light-bg); padding: 40px 20px; border-radius: 8px; margin-top: 50px; border: 1px dashed var(--primary); }
+        .article-footer-cta h4 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 10px; }
+        .article-footer-cta p { font-size: 14px; margin-bottom: 20px; color: var(--gray-text); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .main-banner { height: 280px; }
+            .image-gallery { grid-template-columns: repeat(2, 1fr); }
+            .cta-box { flex-direction: column; text-align: center; }
+            .btn-amazon { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">MANUAL DO<span> CORREDOR</span></a>
+        </div>
+    </header>
+
+    <div class="container">
+        <article>
+            <div class="container" style="padding: 0 40px;">
+                
+                <div class="article-header">
+                    <span class="category-badge">Novidade</span>
+                    <h1>Shokz OpenRun Pro 2: O Fone de Condução Óssea para corridas de longa duração</h1>
+                    <div class="meta-info">Publicado por <span>Manual do Corredor</span> • Atualizado em 2026</div>
+                </div>
+
+                <div class="main-banner">
+                    <img src="https://www.garminbrasil.com.br/cdn/shop/files/OpenRun_Pro2_Channel-05.webp_v_1738807848_width_1000_1a4d4ada-bc91-4732-8b83-b1d75f20bc73.png?v=1759258635&width=713" alt="Shokz OpenRun Pro 2 Banner">
+                </div>
+
+                <div class="cta-box">
+                    <div>
+                        <h3>Gostou deste produto?</h3>
+                        <p>Aproveite os melhores preços.</p>
+                    </div>
+                    <a href="https://www.amazon.com.br/Shokz-Condu%C3%A7%C3%A3o-%C3%93ssea-OpenRun-Preto/dp/B0DM27684P?mcid=a44fa5c4db9136848a7b467f0049ab68&hvadid=715067048070&hvpos=&hvnetw=g&hvrand=6114321988511957378&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9213039&hvtargid=pla-2383317892753&hvocijid=6114321988511957378-B0DM27684P-&hvexpln=0&th=1&linkCode=ll2&tag=rtomaz06-20&linkId=c7feb0a1b58f1d3ef4ac853e69e584e1&ref_=as_li_ss_tl" target="_blank" class="btn-amazon">
+                        Confira aqui <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="content">
+                    <p>A linha de dispositivos da Shokz vem reivindicando a liderança no mercado esportivo desde o seu primeiro lançamento. Projetado cirurgicamente para corredores rápidos que têm o desejo intrínseco de experimentar som premium com total percepção do ambiente, o novíssimo <strong>Fone de Condução Óssea Shokz OpenRun Pro 2 Prata</strong> chega ao mercado refinando o que parecia perfeito.</p>
+                    
+                    <h2>Áudio Avançado e Ouvidos Livres: Tecnologia de Condução Óssea</h2>
+                    <p>O grande coração tecnológico deste equipamento reside no seu sistema de reprodução sonora. Os drivers dos <strong>Fones de Ouvido OpenRun Pro 2</strong> oferecem uma transmissão acústica superleve aliada a um retorno de graves e frequências médias de outro nível. Diferente de fones intra-auriculares tradicionais, a engenharia de condução óssea deixa o canal auditivo totalmente aberto, garantindo uma proteção densa e maior segurança a cada passada rápida que você der nas ruas.</p>
+
+                    <h2>Ficha Técnica do Modelo</h2>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <strong>Conectividade</strong>
+                            <span>Bluetooth Esportivo Estabilizado</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Alimentação</strong>
+                            <span>Entrada com Cabo de Carregamento USB-C</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Estrutura de Ajuste</strong>
+                            <span>Arco de Titânio Ultra Leve e Flexível</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Proteção Interna</strong>
+                            <span>Resistência contra Suor e Chuva (IP55)</span>
+                        </div>
+                    </div>
+
+                    <h2>Design Ergonômico: Conforto e Fixação Absoluta</h2>
+                    <p>Para manter a estrutura perfeitamente firme mesmo em ritmos elevados, a marca aprimorou o arco traseiro do modelo <strong>Shokz OpenRun Pro 2</strong>. Feito com liga leve de titânio revestida por silicone maleável, ele foi projetado especificamente para envolver a sua cabeça de maneira natural. Sua fita elástica exclusiva atua diretamente no equilíbrio milimétrico entre o conforto anatômico do atleta e o desempenho sem oscilações, mesmo em treinos de tiro e descidas acentuadas.</p>
+
+                    <blockquote>
+                        "O fone é tão bom. Ele se ajusta perfeitamente à cabeça e entrega muito mais segurança nos treinos de rua. É incrivelmente eficaz quando você precisa correr rápido e manter a atenção no trânsito à sua volta."
+                    </blockquote>
+
+                    <h2>Autonomia Estendida e Praticidade no Dia a Dia</h2>
+                    <p>Outro salto de engenharia perceptível nesta geração é a tecnologia aplicada ao gerenciamento de bateria. Ao integrar circuitos mais eficientes com a facilidade do novo conector <strong>USB-C</strong>, o corredor experimenta máxima autonomia e velocidade de recarga. O design da <strong>Caixa do Produto OpenRun Pro 2</strong> foi totalmente otimizado para acompanhar a rotina intensa de treinos longos e maratonas. O resultado prático? Horas de reprodução contínua e microfones inteligentes com cancelamento de vento, sem perder um minuto sequer de foco nas pistas.</p>
+                    
+                    <h3 class="gallery-title">Galeria do Modelo</h3>
+                    <div class="image-gallery">
+                        <div class="gallery-item">
+                            <img src="https://www.garminbrasil.com.br/cdn/shop/files/OpenRun_Pro2_Channel-04.webp_v_1729561595_width_1000_ec7035a9-c2bd-4eb4-ac4b-3455e7d775e9.png?v=1759258635&width=713" alt="Detalhes de Áudio Premium">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://www.garminbrasil.com.br/cdn/shop/files/OpenRun_Pro2_Channel-03.webp_v_1729561594_width_1000_f7bbd24b-bbd1-4521-8808-70869437e37c.png?v=1759258635&width=713" alt="Tecnologia de Fones de Ouvido">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://www.garminbrasil.com.br/cdn/shop/files/OpenRun_Pro2_Channel-01.webp_v_1729561594_width_1000_da5f2afb-3f65-41b8-84db-30291d750ea4.png?v=1759258635&width=713" alt="Atleta correndo focado">
+                        </div>
+                    </div>
+
+                    <h2>Veredito Manual do Corredor</h2>
+                    <p>Equipado com hastes flexíveis e transdutores avançados que promovem estabilidade estrutural e uma audição saudável e limpa, o Shokz OpenRun Pro 2 Prata consolida-se como a principal escolha para dias de prova, treinos de ritmo e maratonas.</p>
+                </div>
+
+                <div class="article-footer-cta">
+                    <h4>Quer saber mais sobre este produto?</h4>
+                    <p>Adquira este ou outros produtos clicando no link abaixo.</p>
+                    <a href="https://www.amazon.com.br/Shokz-Condu%C3%A7%C3%A3o-%C3%93ssea-OpenRun-Preto/dp/B0DM27684P?mcid=a44fa5c4db9136848a7b467f0049ab68&hvadid=715067048070&hvpos=&hvnetw=g&hvrand=6114321988511957378&hvpone=&hvptwo=&hvqmt=&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=9213039&hvtargid=pla-2383317892753&hvocijid=6114321988511957378-B0DM27684P-&hvexpln=0&th=1&linkCode=ll2&tag=rtomaz06-20&linkId=c7feb0a1b58f1d3ef4ac853e69e584e1&ref_=as_li_ss_tl" target="_blank" class="btn-amazon">
+                        Comprar Shokz OpenRun Pro 2 na Amazon <i class="fas fa-shopping-cart"></i>
+                    </a>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>
