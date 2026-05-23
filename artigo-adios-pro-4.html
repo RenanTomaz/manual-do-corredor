@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Detalhada: Tênis Adidas Adizero Adios Pro 4 | Manual do Corredor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff5500;       /* Laranja Neon */
+            --primary-glow: rgba(255, 85, 0, 0.15);
+            --dark: #0f1115;          /* Grafite */
+            --dark-surface: #161920;  /* Superfície dos Cards */
+            --gray-text: #64748b;     /* Cinza dos textos */
+            --light-bg: #f4f6f9;      /* Fundo da página */
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light-bg); color: var(--dark); line-height: 1.6; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header simplificado */
+        header { background: var(--dark); padding: 18px 0; border-bottom: 2px solid var(--primary); }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--white); letter-spacing: -1px; }
+        .logo span { color: var(--primary); font-style: italic; }
+
+        /* Artigo Estrutura */
+        article { background: var(--white); padding: 50px 0; margin-top: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 30px; margin-bottom: 40px; }
+        .category-badge { background: var(--dark); color: var(--white); padding: 6px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; border-left: 3px solid var(--primary); display: inline-block; margin-bottom: 15px; }
+        
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 15px; }
+        .meta-info { font-size: 13px; color: var(--gray-text); font-weight: 500; }
+        .meta-info span { color: var(--primary); font-weight: 700; }
+
+        /* Banner Principal */
+        .main-banner { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; margin-bottom: 40px; }
+        .main-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Caixa de Destaque / CTA Rápido */
+        .cta-box { background: var(--dark-surface); color: var(--white); padding: 30px; border-radius: 8px; margin-bottom: 40px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .cta-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 5px; }
+        .cta-box p { color: #cbd5e1; font-size: 14px; }
+        
+        .btn-amazon { background: var(--primary); color: var(--white); padding: 14px 28px; text-decoration: none; border-radius: 4px; font-weight: 700; text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3); }
+        .btn-amazon:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 85, 0, 0.5); }
+
+        /* Conteúdo de Texto */
+        .content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin: 35px 0 15px; letter-spacing: -0.5px; }
+        .content p { font-size: 16px; color: #334155; margin-bottom: 20px; text-align: justify; }
+        
+        /* Lista de Especificações */
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0; }
+        .spec-item { background: var(--light-bg); padding: 15px 20px; border-radius: 6px; border-left: 3px solid var(--dark); }
+        .spec-item strong { display: block; font-size: 12px; text-transform: uppercase; color: var(--gray-text); }
+        .spec-item span { font-size: 15px; font-weight: 700; color: var(--dark); }
+
+        /* Bloco de Citação */
+        blockquote { background: #fff8f5; border-left: 4px solid var(--primary); padding: 25px; margin: 35px 0; font-style: italic; font-weight: 500; color: #1e293b; border-radius: 0 8px 8px 0; position: relative; }
+        blockquote::before { content: '"'; font-family: 'Space Grotesk', sans-serif; font-size: 60px; color: rgba(255, 85, 0, 0.1); position: absolute; top: -10px; left: 10px; }
+
+        /* Galeria de Fotos Mini */
+        .gallery-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+        .image-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
+        .gallery-item { height: 180px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .gallery-item img:hover { transform: scale(1.05); }
+
+        /* Rodapé de Conversão */
+        .article-footer-cta { text-align: center; background: var(--light-bg); padding: 40px 20px; border-radius: 8px; margin-top: 50px; border: 1px dashed var(--primary); }
+        .article-footer-cta h4 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 10px; }
+        .article-footer-cta p { font-size: 14px; margin-bottom: 20px; color: var(--gray-text); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .main-banner { height: 280px; }
+            .image-gallery { grid-template-columns: repeat(2, 1fr); }
+            .cta-box { flex-direction: column; text-align: center; }
+            .btn-amazon { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">MANUAL DO<span> CORREDOR</span></a>
+        </div>
+    </header>
+
+    <div class="container">
+        <article>
+            <div class="container" style="padding: 0 40px;">
+                
+                <div class="article-header">
+                    <span class="category-badge">Novidade</span>
+                    <h1>Adidas Adizero Adios Pro 4: O Rei dos Pódios Explica sua Nova Evolução</h1>
+                    <div class="meta-info">Publicado por <span>Manual do Corredor</span> • Atualizado em 2026</div>
+                </div>
+
+                <div class="main-banner">
+                    <img src="https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/1f42c7cb7e05440597288cc498388dce_9366/Tenis_Adizero_Adios_Pro_4_Branco_JR1094_HM51.jpg" alt="Adidas Adizero Adios Pro 4 Banner">
+                </div>
+
+                <div class="cta-box">
+                    <div>
+                        <h3>Gostou deste produto?</h3>
+                        <p>Aproveite os melhores preços.</p>
+                    </div>
+                    <a href="https://www.amazon.com.br/adidas-T%C3%AAnis-corrida-masculino-Adizero/dp/B0DX18RS5X?dib=eyJ2IjoiMSJ9.WjGH46XIjmfbFDiZoGrVtP8CgSQhd2B-oQliaSRtncCuqseZoeLgIpOmAq5tGHkVSeuSnruI5MNJoXuOULbHg_RWIbCLcBmS0Q1yeWuIZBiFkVGL2fcXtbBCZYCkx4csdW0A1zqVTBIBg3vLKe17HOaoYdg4SO2RyKB16XHXSaO9szASDCcXYBPXb8RM6NpLou6uc8m4R2HMg3h4sydrM8-VJ7jLy7iUKp0rDz5HdGlTZ4_A-sPnvc0Y889cwqdd0Awqgk7bT173K5azYS8ghVSe_w7e-v2078X9h2KsGcI.Fen4roeUbT1vfLxJe4HgssG8No7TBVpTYVmOb0Rpkw0&dib_tag=se&keywords=adizero+adios+pro+4&qid=1779538388&sr=8-3&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751&linkCode=ll2&tag=rtomaz06-20&linkId=26e362bac1bf9c9e4c622c51c6fc3732&ref_=as_li_ss_tl" target="_blank" class="btn-amazon">
+                        Confira aqui <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="content">
+                    <p>A linha Adios Pro vem reivindicando pódios mundiais desde o seu primeiro lançamento. Projetado cirurgicamente para corredores rápidos que têm o desejo intrínseco de experimentar a verdadeira velocidade, o novíssimo <strong>Tênis Adizero Adios Pro 4</strong> chega ao mercado refinando o que parecia perfeito.</p>
+                    
+                    <h2>Amortecimento de Ponta a Ponta: Lightstrike Pro</h2>
+                    <p>O grande coração tecnológico deste calçado reside no seu sistema de amortecimento. O composto de superespuma <strong>Adidas Lightstrike Pro</strong> oferece um amortecimento superleve aliado a um retorno de energia mecânica absurdo, proporcionando uma velocidade de outro nível. Diferente de outras gerações, a camada da espuma mais avançada da marca alemã preenche a entressola de ponta a ponta, garantindo uma proteção densa e responsiva a cada passada rápida que você der.</p>
+
+                    <h2>Ficha Técnica do Modelo</h2>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <strong>Fechamento</strong>
+                            <span>Fecho de cadarço tradicional</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Peso Oficial</strong>
+                            <span>~ 200 g (Tamanho 40 BR)</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Geometria (Drop)</strong>
+                            <span>6 mm (33mm frente / 39mm calcanhar)</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Sustentabilidade</strong>
+                            <span>Pelo menos 20% de conteúdo reciclado</span>
+                        </div>
+                    </div>
+
+                    <h2>Cabedal LIGHTLOCK: Ajuste Natural e Preciso</h2>
+                    <p>Para manter o pé estável sobre uma entressola tão alta, a Adidas desenvolveu o cabedal tecnológico <strong>Adizero LIGHTLOCK</strong>. Feito com materiais têxteis e sintéticos maleáveis, ele foi projetado especificamente para envolver o pé de maneira natural. Sua malha elástica exclusiva atua diretamente no equilíbrio milimétrico entre o conforto anatômico do atleta e o desempenho aerodinâmico em curvas acentuadas.</p>
+
+                    <blockquote>
+                        "O tênis é tão bom. Ele se ajusta perfeitamente aos pés e entrega muito mais aderência na entressola. É incrivelmente eficaz quando você precisa correr rápido, mesmo sob climas chuvosos e asfalto molhado. Posso me ver quebrando mais recordes pessoais com eles."
+                    </blockquote>
+
+                    <h2>Aderência de Precisão: LIGHTTRAXION + Continental™</h2>
+                    <p>Outro salto de engenharia perceptível nesta geração é a tecnologia aplicada ao solado. Ao integrar o composto <strong>LIGHTTRAXION</strong> com a renomada borracha <strong>Continental™ Toe Off</strong>, o corredor experimenta máxima velocidade e controle. O desenho batizado de <em>Hyperzone Grip</em> foi totalmente projetado com base em dados coletados de mapeamentos de pressão de atletas de elite. O resultado prático? Uma drástica redução de peso e espessura da sola, sem perder um milímetro sequer de tração e aderência nas pistas.</p>
+                    
+                    <h3 class="gallery-title">Galeria do Modelo</h3>
+                    <div class="image-gallery">
+                        <div class="gallery-item">
+                            <img src="https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/1f42c7cb7e05440597288cc498388dce_9366/Tenis_Adizero_Adios_Pro_4_Branco_JR1094_HM51.jpg" alt="Visão Lateral Adizero Adios Pro 4">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/4554b3ebc7c846f7b64c994df8292953_9366/Tenis_Adizero_Adios_Pro_4_Branco_JR1094_04_standard.jpg" alt="Visão Traseira Calcanhar Adizero Adios Pro 4">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://assets.adidas.com/images/h_2000,f_auto,q_auto,fl_lossy,c_fill,g_auto/bd1862e8005f4fd98fac2d03fe396cff_9366/Tenis_Adizero_Adios_Pro_4_Branco_JR1094_03_standard.jpg" alt="Detalhe do Solado Continental">
+                        </div>
+                    </div>
+
+                    <h2>Veredito Manual do Corredor</h2>
+                    <p>Equipado com hastes de carbono internas que promovem rigidez estrutural e uma transição suave e mecânica desde o calcanhar até a ponta dos pés, o Adizero Adios Pro 4 consolida-se como a principal escolha para dias de prova, treinos de ritmo e maratonas. Se o seu objetivo é quebrar recordes pessoais com o máximo de retorno de energia do mercado atual, esse investimento vale cada centavo.</p>
+                </div>
+
+                <div class="article-footer-cta">
+                    <h4>Quer saber mais sobre este produto?</h4>
+                    <p>Adquira este ou outros produtos clicando no link abaixo.</p>
+                    <a href="https://www.amazon.com.br/adidas-T%C3%AAnis-corrida-masculino-Adizero/dp/B0DX18RS5X?dib=eyJ2IjoiMSJ9.WjGH46XIjmfbFDiZoGrVtP8CgSQhd2B-oQliaSRtncCuqseZoeLgIpOmAq5tGHkVSeuSnruI5MNJoXuOULbHg_RWIbCLcBmS0Q1yeWuIZBiFkVGL2fcXtbBCZYCkx4csdW0A1zqVTBIBg3vLKe17HOaoYdg4SO2RyKB16XHXSaO9szASDCcXYBPXb8RM6NpLou6uc8m4R2HMg3h4sydrM8-VJ7jLy7iUKp0rDz5HdGlTZ4_A-sPnvc0Y889cwqdd0Awqgk7bT173K5azYS8ghVSe_w7e-v2078X9h2KsGcI.Fen4roeUbT1vfLxJe4HgssG8No7TBVpTYVmOb0Rpkw0&dib_tag=se&keywords=adizero+adios+pro+4&qid=1779538388&sr=8-3&ufe=app_do%3Aamzn1.fos.95de73c3-5dda-43a7-bd1f-63af03b14751&linkCode=ll2&tag=rtomaz06-20&linkId=26e362bac1bf9c9e4c622c51c6fc3732&ref_=as_li_ss_tl" target="_blank" class="btn-amazon">
+                        Comprar Adizero Adios Pro 4 na Amazon <i class="fas fa-shopping-cart"></i>
+                    </a>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>
