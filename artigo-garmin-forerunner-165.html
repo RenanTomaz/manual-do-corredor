@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análise Detalhada: Garmin Forerunner 165 | Manual do Corredor</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #ff5500;       /* Laranja Neon */
+            --primary-glow: rgba(255, 85, 0, 0.15);
+            --dark: #0f1115;          /* Grafite */
+            --dark-surface: #161920;  /* Superfície dos Cards */
+            --gray-text: #64748b;     /* Cinza dos textos */
+            --light-bg: #f4f6f9;      /* Fundo da página */
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light-bg); color: var(--dark); line-height: 1.6; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+        
+        /* Header simplificado */
+        header { background: var(--dark); padding: 18px 0; border-bottom: 2px solid var(--primary); }
+        .logo { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; text-transform: uppercase; text-decoration: none; color: var(--white); letter-spacing: -1px; }
+        .logo span { color: var(--primary); font-style: italic; }
+
+        /* Artigo Estrutura */
+        article { background: var(--white); padding: 50px 0; margin-top: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.02); }
+        
+        .article-header { border-bottom: 1px solid var(--border-color); padding-bottom: 30px; margin-bottom: 40px; }
+        .category-badge { background: var(--dark); color: var(--white); padding: 6px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; border-left: 3px solid var(--primary); display: inline-block; margin-bottom: 15px; }
+        
+        h1 { font-family: 'Space Grotesk', sans-serif; font-size: 2.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -1px; margin-bottom: 15px; }
+        .meta-info { font-size: 13px; color: var(--gray-text); font-weight: 500; }
+        .meta-info span { color: var(--primary); font-weight: 700; }
+
+        /* Banner Principal */
+        .main-banner { width: 100%; height: 450px; border-radius: 8px; overflow: hidden; margin-bottom: 40px; }
+        .main-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Caixa de Destaque / CTA Rápido */
+        .cta-box { background: var(--dark-surface); color: var(--white); padding: 30px; border-radius: 8px; margin-bottom: 40px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .cta-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 5px; }
+        .cta-box p { color: #cbd5e1; font-size: 14px; }
+        
+        .btn-amazon { background: var(--primary); color: var(--white); padding: 14px 28px; text-decoration: none; border-radius: 4px; font-weight: 700; text-transform: uppercase; font-size: 13px; display: inline-flex; align-items: center; gap: 10px; transition: 0.2s; box-shadow: 0 4px 15px rgba(255, 85, 0, 0.3); }
+        .btn-amazon:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255, 85, 0, 0.5); }
+
+        /* Conteúdo de Texto */
+        .content h2 { font-family: 'Space Grotesk', sans-serif; font-size: 1.8rem; font-weight: 700; margin: 35px 0 15px; letter-spacing: -0.5px; }
+        .content p { font-size: 16px; color: #334155; margin-bottom: 20px; text-align: justify; }
+        
+        /* Lista de Especificações */
+        .specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 30px 0; }
+        .spec-item { background: var(--light-bg); padding: 15px 20px; border-radius: 6px; border-left: 3px solid var(--dark); }
+        .spec-item strong { display: block; font-size: 12px; text-transform: uppercase; color: var(--gray-text); }
+        .spec-item span { font-size: 15px; font-weight: 700; color: var(--dark); }
+
+        /* Bloco de Citação */
+        blockquote { background: #fff8f5; border-left: 4px solid var(--primary); padding: 25px; margin: 35px 0; font-style: italic; font-weight: 500; color: #1e293b; border-radius: 0 8px 8px 0; position: relative; }
+        blockquote::before { content: '"'; font-family: 'Space Grotesk', sans-serif; font-size: 60px; color: rgba(255, 85, 0, 0.1); position: absolute; top: -10px; left: 10px; }
+
+        /* Galeria de Fotos Mini */
+        .gallery-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 15px; text-transform: uppercase; }
+        .image-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
+        .gallery-item { height: 180px; border-radius: 6px; overflow: hidden; border: 1px solid var(--border-color); }
+        .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: 0.3s; }
+        .gallery-item img:hover { transform: scale(1.05); }
+
+        /* Rodapé de Conversão */
+        .article-footer-cta { text-align: center; background: var(--light-bg); padding: 40px 20px; border-radius: 8px; margin-top: 50px; border: 1px dashed var(--primary); }
+        .article-footer-cta h4 { font-family: 'Space Grotesk', sans-serif; font-size: 22px; margin-bottom: 10px; }
+        .article-footer-cta p { font-size: 14px; margin-bottom: 20px; color: var(--gray-text); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2rem; }
+            .main-banner { height: 280px; }
+            .image-gallery { grid-template-columns: repeat(2, 1fr); }
+            .cta-box { flex-direction: column; text-align: center; }
+            .btn-amazon { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <a href="#" class="logo">MANUAL DO<span> CORREDOR</span></a>
+        </div>
+    </header>
+
+    <div class="container">
+        <article>
+            <div class="container" style="padding: 0 40px;">
+                
+                <div class="article-header">
+                    <span class="category-badge">Novidade</span>
+                    <h1>Garmin Forerunner 165:  Exercícios diários personalizados e previsões de tempo de conclusão.</h1>
+                    <div class="meta-info">Publicado por <span>Manual do Corredor</span> • Atualizado em 2026</div>
+                </div>
+
+                <div class="main-banner">
+                    <img src="https://avuke.com.br/garmin/forerunner165/images/forerunner165-banner00.webp" alt="Garmin Forerunner 165 Banner">
+                </div>
+
+                <div class="cta-box">
+                    <div>
+                        <h3>Gostou deste produto?</h3>
+                        <p>Aproveite os melhores preços.</p>
+                    </div>
+                    <a href="https://www.amazon.com.br/Garmin-Forerunner-165/dp/B0CT3SGHXL?th=1&linkCode=ll2&tag=rtomaz06-20&linkId=e16d5539a7b5dc68a87fcacc31249944&ref_=as_li_ss_tl" target="_blank" class="btn-amazon">
+                        Confira aqui <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="content">
+                    <p>A linha Forerunner da Garmin vem ditando os padrões de monitoramento para corredores de rua em todo o mundo. Projetado estrategicamente para atletas de todos os níveis que têm o desejo de monitorar métricas desportivas precisas e experimentar dados de performance em tempo real, o novíssimo <strong>Relógio Garmin Forerunner ® 165</strong> chega ao mercado trazendo um visor vibrante e recursos de última geração.</p>
+                    
+                    <h2>Métricas Inteligentes de Corrida: Dinâmica Avançada no Pulso</h2>
+                    <p>O grande coração tecnológico deste dispositivo reside na integração do seu ecossistema. O visor com tecnologia <strong>AMOLED</strong> oferece uma leitura de dados de forma nítida sob a luz do sol de outro nível. Com o monitoramento constante no pulso, o relógio obtém medições cruciais diretamente da sua atividade, como cadência, comprimento de passada, tempo de contato com o solo e muito mais, garantindo uma visualização detalhada e responsiva a cada passada rápida que você der nas pistas.</p>
+
+                    <h2>Ficha Técnica do Modelo</h2>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <strong>Localização</strong>
+                            <span>GNSS Incorporado Multi-Sistemas</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Sensores de Saúde</strong>
+                            <span>Frequência Cardíaca e Estresse Continuo</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Autonomia de Bateria</strong>
+                            <span>Até 11 dias em Modo Smartwatch</span>
+                        </div>
+                        <div class="spec-item">
+                            <strong>Uso Esportivo com GPS</strong>
+                            <span>Até 19 horas contínuas de rastreamento</span>
+                        </div>
+                    </div>
+
+                    <h2>Gestão de Energia e Recuperação Avançada</h2>
+                    <p>Para manter o controle total do seu ritmo e evitar o excesso de treinamento, a interface do relógio disponibiliza ferramentas cruciais como o <strong>Monitoramento de Energia Body Battery™</strong> e o cálculo preciso do seu <strong>Tempo de Recuperação</strong>. Ele foi projetado especificamente para analisar seus hábitos diários de forma natural. Suas funções atuam diretamente no equilíbrio milimétrico entre o acompanhamento do sono do atleta e o desempenho físico em treinos de esforço elevado.</p>
+
+                    <blockquote>
+                        "É exatamente o relógio que precisava para me auxiliar na medição dos tempos de corrida e atingir os resultados esperados."
+                    </blockquote>
+
+                    <h2>Estratégia e Ritmo Sob Controle: Recurso PacePro™</h2>
+                    <p>Outro salto de engenharia perceptível nesta geração é a tecnologia aplicada ao mapeamento por satélite e ritmo de prova. Ao integrar o <strong>GNSS Incorporado</strong> com o recurso exclusivo <strong>PacePro™</strong>, o corredor consegue planejar a estratégia perfeita para o dia da corrida, utilizando orientações de ritmo baseadas em GPS para um percurso selecionado. O sistema projeta estimativas de tempo reais para distâncias de 5 km, 10 km, meia maratona e maratona com base no histórico recente de atividades e nos seus minutos de intensidade acumulados.</p>
+                    
+                    <h3 class="gallery-title">Galeria do Modelo</h3>
+                    <div class="image-gallery">
+                        <div class="gallery-item">
+                            <img src="https://avuke.com.br/garmin/forerunner165/images/forerunner165-prod05.webp" alt="Interface Garmin Monitoramento">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://avuke.com.br/garmin/forerunner165/images/forerunner165-prod02.webp" alt="Design do Relógio de Corrida">
+                        </div>
+                        <div class="gallery-item">
+                            <img src="https://avuke.com.br/garmin/forerunner165/images/forerunner165-prod04.webp" alt="Atleta monitorando a corrida">
+                        </div>
+                    </div>
+
+                    <h2>Veredito Manual do Corredor</h2>
+                    <p>Equipado com o ecossistema Garmin que promove consistência estrutural e um monitoramento suave e dinâmico, o dispositivo permite ler e controlar a música do seu smartphone diretamente do pulso, além de contar com segurança de detecção de incidentes. O Garmin Forerunner 165 consolida-se como a principal escolha para dias de prova, treinos de ritmo e maratonas. Se o seu objetivo é atingir os resultados esperados e evoluir com o melhor balanço de recursos do mercado atual, esse investimento vale cada centavo.</p>
+                </div>
+
+                <div class="article-footer-cta">
+                    <h4>Quer saber mais sobre este produto?</h4>
+                    <p>Adquira este ou outros produtos clicando no link abaixo.</p>
+                    <a href="https://www.amazon.com.br/Garmin-Forerunner-165/dp/B0CT3SGHXL?th=1&linkCode=ll2&tag=rtomaz06-20&linkId=e16d5539a7b5dc68a87fcacc31249944&ref_=as_li_ss_tl" target="_blank" class="btn-amazon">
+                        Comprar Garmin Forerunner 165 na Amazon <i class="fas fa-shopping-cart"></i>
+                    </a>
+                </div>
+
+            </div>
+        </article>
+    </div>
+
+</body>
+</html>
